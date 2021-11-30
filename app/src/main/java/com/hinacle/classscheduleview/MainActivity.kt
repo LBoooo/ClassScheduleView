@@ -1,17 +1,21 @@
 package com.hinacle.classscheduleview
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
+//import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import com.hinacle.classscheduleview.listener.ISchedule
-import com.hinacle.classscheduleview.listener.IWeekView
-import com.hinacle.classscheduleview.listener.OnSlideBuildAdapter
-import com.hinacle.classscheduleview.model.Schedule
-import com.hinacle.classscheduleview.view.WeekView
+import com.hinacle.classschedule.TimetableView
+import com.hinacle.classschedule.listener.ISchedule
+import com.hinacle.classschedule.listener.IWeekView
+import com.hinacle.classschedule.listener.OnSlideBuildAdapter
+import com.hinacle.classschedule.model.MySubject
+import com.hinacle.classschedule.model.Schedule
+import com.hinacle.classschedule.view.WeekView
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : Activity() {
 
     var mySubjects: List<MySubject>? = null
 
@@ -141,9 +145,9 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
     }
 
-    fun loadDefaultSubjects(): List<MySubject> {
+    fun loadDefaultSubjects(): List< MySubject> {
        return (0..10).map {
-            MySubject().apply {
+           MySubject().apply {
                 term = "2017-2018学年秋"
                 name = "计算机组成原理"
                 room = "203"

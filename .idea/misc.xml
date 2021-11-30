@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2125" />
+        <entry key="classschedule/src/main/res/drawable-v24/course_redpoint_style.xml" value="0.18425925925925926" />
+        <entry key="classschedule/src/main/res/drawable-v24/week_oval_press_style.xml" value="0.18425925925925926" />
+        <entry key="classschedule/src/main/res/drawable-v24/week_oval_style.xml" value="0.18425925925925926" />
+        <entry key="classschedule/src/main/res/layout/view_simplescrollview.xml" value="0.2125" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Embedded JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
