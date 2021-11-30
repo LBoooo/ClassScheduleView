@@ -1,4 +1,7 @@
-package com.hinacle.classschedule.model
+package com.hinacle.classscheduleview
+
+import com.hinacle.classschedule.model.Schedule
+import com.hinacle.classschedule.model.ScheduleEnable
 
 
 /**

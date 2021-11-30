@@ -10,7 +10,6 @@ import com.hinacle.classschedule.TimetableView
 import com.hinacle.classschedule.listener.ISchedule
 import com.hinacle.classschedule.listener.IWeekView
 import com.hinacle.classschedule.listener.OnSlideBuildAdapter
-import com.hinacle.classschedule.model.MySubject
 import com.hinacle.classschedule.model.Schedule
 import com.hinacle.classschedule.view.WeekView
 
@@ -145,7 +144,7 @@ class MainActivity : Activity() {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
     }
 
-    fun loadDefaultSubjects(): List< MySubject> {
+    fun loadDefaultSubjects(): List<MySubject> {
        return (0..10).map {
            MySubject().apply {
                 term = "2017-2018学年秋"
