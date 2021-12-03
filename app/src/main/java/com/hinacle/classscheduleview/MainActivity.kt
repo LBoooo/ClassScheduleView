@@ -3,14 +3,16 @@ package com.hinacle.classscheduleview
 import android.app.Activity
 import android.app.AlertDialog
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 //import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.*
 import com.hinacle.classschedule.TimetableView
-import com.hinacle.classschedule.listener.ISchedule
-import com.hinacle.classschedule.listener.IWeekView
-import com.hinacle.classschedule.listener.OnSlideBuildAdapter
+import com.hinacle.classschedule.listener.*
 import com.hinacle.classschedule.model.Schedule
+import com.hinacle.classschedule.utils.ScreenUtils
 import com.hinacle.classschedule.view.WeekView
 
 
@@ -55,6 +57,8 @@ class MainActivity : Activity() {
             .showView()
 
         mTimetableView.source(mySubjects)
+            .cornerAll(10)
+//            .marTop(0)
             .curWeek(1)
             .curTerm("大三下学期")
             .maxSlideItem(10)
@@ -62,8 +66,51 @@ class MainActivity : Activity() {
             //日期栏0.1f、侧边栏0.1f，周次选择栏0.6f
             //透明度范围为0->1，0为全透明，1为不透明
             //                .alpha(0.1f, 0.1f, 0.6f)
+//            .callback(
+//                object : OnDateBuildAapter () {
+//                    override fun onBuildDayLayout(
+//                        mInflate: LayoutInflater,
+//                        pos: Int,
+//                        width: Int,
+//                        height: Int
+//                    ): View? {
+//                        val newHeight: Int = ScreenUtils.dip2px(this@MainActivity, 30f)
+//                        val v: View = mInflate.inflate(R.layout.item_custom_dateview, null, false)
+//                        val dayTextView = v.findViewById<TextView>(R.id.id_week_day)
+//                        dayTextView.text = dateArray[pos]
+//                        val dateTextView = v.findViewById<TextView>(R.id.id_week_date)
+//                        dateTextView.text = dateArray[pos]
+//                        layouts[pos] = v.findViewById<LinearLayout>(R.id.id_week_layout)
+//                        val lp = LinearLayout.LayoutParams(width, newHeight)
+//                        layouts[pos].layoutParams = lp
+//                        return v
+//                    }})
+            .callback(object :OnItemBuildAdapter(){
+                override fun onItemUpdate(
+                    layout: FrameLayout,
+                    textView: TextView,
+                    tagView: ImageView,
+                    remarkView: ImageView,
+                    schedule: Schedule,
+                    gd: GradientDrawable
+                ) {
+                    super.onItemUpdate(layout, textView, tagView, remarkView, schedule, gd)
+                    tagView.setImageResource(R.drawable.course_redpoint_style)
+                    remarkView.setImageResource(R.drawable.abc_vector_test)
+
+                }
+            })
             .callback(ISchedule.OnItemClickListener { v, scheduleList ->
-                display(scheduleList)
+                if (!scheduleList.isNullOrEmpty()){
+//                    display(scheduleList)
+                    if (scheduleList.size > 1){
+                        Toast.makeText(this , "${scheduleList.size}项:"+ scheduleList.toString(), Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(this , "单项:"+ scheduleList[0].name, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+
             })
             .callback(ISchedule.OnItemLongClickListener { v, day, start ->
                 Toast.makeText(
@@ -145,18 +192,101 @@ class MainActivity : Activity() {
     }
 
     fun loadDefaultSubjects(): List<MySubject> {
-       return (0..10).map {
-           MySubject().apply {
+        val list = mutableListOf<MySubject>()
+        list.add(
+            MySubject().apply {
                 term = "2017-2018学年秋"
                 name = "计算机组成原理"
                 room = "203"
-                teacher = "jiaoshi"+it
+                teacher = "jiaoshi0123"
                 weekList = listOf(1,2)
+                colorRandom = Color.parseColor("#ff0000")
+                start = 1
+                step = 4
+                day = 2
+            }
+        )
+        list.add(
+            MySubject().apply {
+                term = "2017-2018学年秋"
+                name = "计算机组成原理"
+                room = "203"
+                teacher = "jiaoshi0123"
+                weekList = listOf(1,2)
+                colorRandom = Color.parseColor("#ff0000")
+                start = 4
+                step = 1
+                day = 3
+            }
+        )
+        list.add(
+            MySubject().apply {
+                term = "2000-2000学年秋"
+                name = "计算机组成原理213"
+                room = "20322"
+                teacher = "jiaoshi9999"
+                weekList = listOf(1,2)
+                colorRandom = Color.parseColor("#00ff00")
                 start = 1
                 step = 1
                 day = 2
             }
-        }
+        )
+        list.add(
+            MySubject().apply {
+                term = "2000-2000学年秋"
+                name = "start2 - 2"
+                room = "20322"
+                teacher = "jiaoshi9999"
+                weekList = listOf(1,2)
+                colorRandom = Color.parseColor("#0000ff")
+                start = 2
+                step = 2
+                day = 2
+            }
+        )
+        list.add(
+            MySubject().apply {
+                term = "2000-2000学年秋"
+                name = "start5 - 5"
+                room = "20322"
+                teacher = "jiaoshi9999"
+                weekList = listOf(1,2)
+                colorRandom = Color.parseColor("#ffff00")
+                start = 5
+                step = 5
+                day = 2
+            }
+        )
+
+        list.add(
+            MySubject().apply {
+                term = "2000-2000学年秋"
+                name = "start6 - 2"
+                room = "20322"
+                teacher = "jiaoshi9999"
+                weekList = listOf(1,2)
+                colorRandom = Color.parseColor("#ff00ff")
+                start = 6
+                step = 2
+                day = 2
+            }
+        )
+
+        list.add(
+            MySubject().apply {
+                term = "2000-2000学年秋"
+                name = "start10 - 1"
+                room = "20322"
+                teacher = "jiaoshi9999"
+                weekList = listOf(1,2)
+                colorRandom = Color.parseColor("#ff00ff")
+                start = 10
+                step = 1
+                day = 2
+            }
+        )
+       return list
     }
 
     /**

@@ -15,4 +15,5 @@ public class OnItemClickAdapter implements ISchedule.OnItemClickListener {
     @Override
     public void onItemClick(View v, List<Schedule> scheduleList) {
     }
+
 }

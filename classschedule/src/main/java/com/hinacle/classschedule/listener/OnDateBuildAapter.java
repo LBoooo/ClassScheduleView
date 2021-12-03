@@ -89,7 +89,7 @@ public class OnDateBuildAapter implements ISchedule.OnDateBuildListener {
         textViews[0].setText(month + "\n月");
         for (int i = 1; i < 8; i++) {
             if (textViews[i] != null) {
-                textViews[i].setText(weekDates.get(i) + "日");
+                textViews[i].setText(weekDates.get(i));
             }
         }
     }
@@ -127,7 +127,7 @@ public class OnDateBuildAapter implements ISchedule.OnDateBuildListener {
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width, height);
         layouts[pos].setLayoutParams(lp);
-        textViews[pos].setText(weekDates.get(pos) + "日");
+        textViews[pos].setText(weekDates.get(pos));
 
         return v;
     }
@@ -149,8 +149,11 @@ public class OnDateBuildAapter implements ISchedule.OnDateBuildListener {
 
     protected void activeDateBackground(int weekDay) {
         if (layouts.length > weekDay && layouts[weekDay] != null) {
-            layouts[weekDay].setBackgroundColor(
-                    ColorUtils.alphaColor(Color.parseColor("#BFF6F4"), alpha));
+            textViews[weekDay].setBackgroundResource(R.drawable.shape_today_src);
+            textViews[weekDay].setTextColor(0xFFFFFFFF);
+            textViews[weekDay].setText("今");
+//            layouts[weekDay].setBackgroundColor(
+//                    ColorUtils.alphaColor(Color.parseColor("#BFF6F4"), alpha));
         }
     }
 }

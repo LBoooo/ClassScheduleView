@@ -7,6 +7,15 @@
         <entry key="classschedule/src/main/res/drawable-v24/course_redpoint_style.xml" value="0.18425925925925926" />
         <entry key="classschedule/src/main/res/drawable-v24/week_oval_press_style.xml" value="0.18425925925925926" />
         <entry key="classschedule/src/main/res/drawable-v24/week_oval_style.xml" value="0.18425925925925926" />
+        <entry key="classschedule/src/main/res/drawable/course_redpoint_style.xml" value="0.22512820512820514" />
+        <entry key="classschedule/src/main/res/drawable/item_corner_style.xml" value="0.22512820512820514" />
+        <entry key="classschedule/src/main/res/drawable/shape_today_src.xml" value="0.19814814814814816" />
+        <entry key="classschedule/src/main/res/layout/item_custom_dateview.xml" value="0.2125" />
+        <entry key="classschedule/src/main/res/layout/item_dateview.xml" value="0.2125" />
+        <entry key="classschedule/src/main/res/layout/item_timetable.xml" value="0.2125" />
+        <entry key="classschedule/src/main/res/layout/layout_test.xml" value="0.2125" />
+        <entry key="classschedule/src/main/res/layout/timetable_layout.xml" value="0.2125" />
+        <entry key="classschedule/src/main/res/layout/view_content.xml" value="0.2125" />
         <entry key="classschedule/src/main/res/layout/view_simplescrollview.xml" value="0.2125" />
       </map>
     </option>

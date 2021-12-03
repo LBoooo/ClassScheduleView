@@ -94,7 +94,7 @@ open class MySubject : ScheduleEnable {
         schedule.step = step
         schedule.teacher = teacher
         schedule.weekList = weekList
-        schedule.colorRandom = 2
+        schedule.colorRandom = colorRandom
         schedule.putExtras(EXTRAS_ID, id)
         schedule.putExtras(EXTRAS_AD_URL, url)
         return schedule

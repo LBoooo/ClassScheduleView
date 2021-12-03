@@ -3,6 +3,7 @@ package com.hinacle.classschedule.listener;
 import android.graphics.drawable.GradientDrawable;
 import android.text.TextUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hinacle.classschedule.model.Schedule;
@@ -30,5 +31,10 @@ public class OnItemBuildAdapter implements ISchedule.OnItemBuildListener {
 
     @Override
     public void onItemUpdate(FrameLayout layout, TextView textView, TextView countTextView, Schedule schedule, GradientDrawable gd) {
+    }
+
+    @Override
+    public void onItemUpdate(FrameLayout layout, TextView textView, ImageView tagView, ImageView remarkView, Schedule schedule, GradientDrawable gd) {
+
     }
 }
