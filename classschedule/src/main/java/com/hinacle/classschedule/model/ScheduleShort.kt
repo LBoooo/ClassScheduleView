@@ -17,34 +17,6 @@ fun flitSchedule(data: List<Schedule>?, curWeek: Int, isShowNotCurWeek: Boolean)
     return filter
 }
 
-//var associateList = mutableListOf<Schedule>()
-//fun findAssociateData(
-//    data: List<Schedule>,
-//    currData: Schedule,
-//    start: Boolean = true
-//): List<Schedule> {
-//    var list = data
-//    if (start) {
-//        associateList = mutableListOf()
-//        associateList.add(currData)
-//        list = list - currData
-//    }
-//    if (list.isEmpty())
-//        return associateList
-//    else {
-//        list.forEach {
-//            if (currData.start in it.start until it.start + it.step ||
-//                (currData.start <= it.start && (currData.start + currData.step) >= (it.start + it.step))
-//            ) {
-//                associateList.add(it)
-//                return findAssociateData(list - it, it, false)
-//            }
-//        }
-//
-//
-//    }
-//}
-
 /**
  * 递归查找符合条件的数据
  */

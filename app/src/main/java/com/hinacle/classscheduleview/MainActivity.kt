@@ -42,50 +42,55 @@ class MainActivity : Activity() {
 
         //设置周次选择属性
 
-        //设置周次选择属性
-        mWeekView.source(mySubjects)
-            .curWeek(1)
-            .callback { week ->
-                val cur: Int = mTimetableView.curWeek()
-                //更新切换后的日期，从当前周cur->切换的周week
-                mTimetableView.onDateBuildListener()
-                    .onUpdateDate(cur, week)
-                mTimetableView.changeWeekOnly(week)
-            }
-            .callback(IWeekView.OnWeekLeftClickedListener { onWeekLeftLayoutClicked() })
-            .isShow(false) //设置隐藏，默认显示
-            .showView()
+//        //设置周次选择属性
+//        mWeekView.source(mySubjects)
+//            .curWeek(1)
+//            .callback { week ->
+//                val cur: Int = mTimetableView.curWeek()
+//                //更新切换后的日期，从当前周cur->切换的周week
+//                mTimetableView.onDateBuildListener()
+//                    .onUpdateDate(cur, week)
+//                mTimetableView.changeWeekOnly(week)
+//            }
+//            .callback(IWeekView.OnWeekLeftClickedListener { onWeekLeftLayoutClicked() })
+//            .isShow(false) //设置隐藏，默认显示
+//            .showView()
 
         mTimetableView.source(mySubjects)
             .cornerAll(10)
 //            .marTop(0)
-            .curWeek(1)
+//            .curWeek(1)
             .curTerm("大三下学期")
             .maxSlideItem(10)
             .monthWidthDp(30) //透明度
             //日期栏0.1f、侧边栏0.1f，周次选择栏0.6f
             //透明度范围为0->1，0为全透明，1为不透明
             //                .alpha(0.1f, 0.1f, 0.6f)
-//            .callback(
-//                object : OnDateBuildAapter () {
-//                    override fun onBuildDayLayout(
-//                        mInflate: LayoutInflater,
-//                        pos: Int,
-//                        width: Int,
-//                        height: Int
-//                    ): View? {
-//                        val newHeight: Int = ScreenUtils.dip2px(this@MainActivity, 30f)
-//                        val v: View = mInflate.inflate(R.layout.item_custom_dateview, null, false)
-//                        val dayTextView = v.findViewById<TextView>(R.id.id_week_day)
-//                        dayTextView.text = dateArray[pos]
-//                        val dateTextView = v.findViewById<TextView>(R.id.id_week_date)
-//                        dateTextView.text = dateArray[pos]
-//                        layouts[pos] = v.findViewById<LinearLayout>(R.id.id_week_layout)
-//                        val lp = LinearLayout.LayoutParams(width, newHeight)
-//                        layouts[pos].layoutParams = lp
-//                        return v
-//                    }})
-            .callback(object :OnItemBuildAdapter(){
+//            .callback(object :OnDateBuildAapter(){
+//                override fun setWeekDates(selectTime: Long?) {
+//                    super.setWeekDates(selectTime)
+//                }
+//            })
+            .callback(object : OnDateBuildAapter() {
+                override fun onUpdateDate(curWeek: Int, targetWeek: Int) {
+                    super.onUpdateDate(curWeek, targetWeek)
+
+                }
+            })
+            .callback(
+                object : OnDateBuildAapter() {
+                    override fun onBuildDayLayout(
+                        mInflate: LayoutInflater?,
+                        pos: Int,
+                        width: Int,
+                        height: Int
+                    ): View {
+
+
+                        return super.onBuildDayLayout(mInflate, pos, width, height)
+                    }
+                })
+            .callback(object : OnItemBuildAdapter() {
                 override fun onItemUpdate(
                     layout: FrameLayout,
                     textView: TextView,
@@ -101,12 +106,17 @@ class MainActivity : Activity() {
                 }
             })
             .callback(ISchedule.OnItemClickListener { v, scheduleList ->
-                if (!scheduleList.isNullOrEmpty()){
+                if (!scheduleList.isNullOrEmpty()) {
 //                    display(scheduleList)
-                    if (scheduleList.size > 1){
-                        Toast.makeText(this , "${scheduleList.size}项:"+ scheduleList.toString(), Toast.LENGTH_SHORT).show()
-                    }else{
-                        Toast.makeText(this , "单项:"+ scheduleList[0].name, Toast.LENGTH_SHORT).show()
+                    if (scheduleList.size > 1) {
+                        Toast.makeText(
+                            this,
+                            "${scheduleList.size}项:" + scheduleList.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(this, "单项:" + scheduleList[0].name, Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
 
@@ -121,7 +131,7 @@ class MainActivity : Activity() {
             })
             .callback(ISchedule.OnWeekChangedListener { curWeek ->
 
-                Toast.makeText(this , "第" + curWeek + "周",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "第" + curWeek + "周", Toast.LENGTH_SHORT).show()
             }) //旗标布局点击监听
             .callback(ISchedule.OnFlaglayoutClickListener { day, start ->
                 mTimetableView.hideFlaglayout()
@@ -199,7 +209,7 @@ class MainActivity : Activity() {
                 name = "计算机组成原理"
                 room = "203"
                 teacher = "jiaoshi0123"
-                weekList = listOf(1,2)
+                weekList = listOf(1, 2)
                 colorRandom = Color.parseColor("#ff0000")
                 start = 1
                 step = 4
@@ -212,7 +222,7 @@ class MainActivity : Activity() {
                 name = "计算机组成原理"
                 room = "203"
                 teacher = "jiaoshi0123"
-                weekList = listOf(1,2)
+                weekList = listOf(1, 2)
                 colorRandom = Color.parseColor("#ff0000")
                 start = 4
                 step = 1
@@ -225,7 +235,7 @@ class MainActivity : Activity() {
                 name = "计算机组成原理213"
                 room = "20322"
                 teacher = "jiaoshi9999"
-                weekList = listOf(1,2)
+                weekList = listOf(1, 2)
                 colorRandom = Color.parseColor("#00ff00")
                 start = 1
                 step = 1
@@ -238,7 +248,7 @@ class MainActivity : Activity() {
                 name = "start2 - 2"
                 room = "20322"
                 teacher = "jiaoshi9999"
-                weekList = listOf(1,2)
+                weekList = listOf(1, 2)
                 colorRandom = Color.parseColor("#0000ff")
                 start = 2
                 step = 2
@@ -251,7 +261,7 @@ class MainActivity : Activity() {
                 name = "start5 - 5"
                 room = "20322"
                 teacher = "jiaoshi9999"
-                weekList = listOf(1,2)
+                weekList = listOf(1, 2)
                 colorRandom = Color.parseColor("#ffff00")
                 start = 5
                 step = 5
@@ -265,7 +275,7 @@ class MainActivity : Activity() {
                 name = "start6 - 2"
                 room = "20322"
                 teacher = "jiaoshi9999"
-                weekList = listOf(1,2)
+                weekList = listOf(1, 2)
                 colorRandom = Color.parseColor("#ff00ff")
                 start = 6
                 step = 2
@@ -279,14 +289,14 @@ class MainActivity : Activity() {
                 name = "start10 - 1"
                 room = "20322"
                 teacher = "jiaoshi9999"
-                weekList = listOf(1,2)
+                weekList = listOf(1, 2)
                 colorRandom = Color.parseColor("#ff00ff")
                 start = 10
                 step = 1
                 day = 2
             }
         )
-       return list
+        return list
     }
 
     /**
@@ -297,8 +307,7 @@ class MainActivity : Activity() {
         val times = arrayOf(
             "8:00", "9:00", "10:00", "11:00",
             "12:00", "13:00", "14:00", "15:00",
-            "16:00", "17:00", "18:00", "19:00"
-            , "20:00", "21:00", "22:00"
+            "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"
         )
         val listener: OnSlideBuildAdapter =
             mTimetableView.onSlideBuildListener() as OnSlideBuildAdapter

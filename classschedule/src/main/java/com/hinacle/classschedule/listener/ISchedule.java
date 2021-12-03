@@ -201,6 +201,8 @@ public interface ISchedule {
          * 更新日期时回调
          */
         void onUpdateDate(int curWeek,int targetWeek);
+
+        void onUpdateDate(Long date);
     }
 
     interface OnConfigHandleListener{

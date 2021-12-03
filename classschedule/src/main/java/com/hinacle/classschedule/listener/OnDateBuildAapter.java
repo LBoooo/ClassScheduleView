@@ -65,6 +65,7 @@ public class OnDateBuildAapter implements ISchedule.OnDateBuildListener {
 
         //获取周几，1->7
         Calendar now = Calendar.getInstance();
+
         //一周第一天是否为星期天
         boolean isFirstSunday = (now.getFirstDayOfWeek() == Calendar.SUNDAY);
         int weekDay = now.get(Calendar.DAY_OF_WEEK);
@@ -84,14 +85,24 @@ public class OnDateBuildAapter implements ISchedule.OnDateBuildListener {
     public void onUpdateDate(int curWeek, int targetWeek) {
         if (textViews == null || textViews.length < 8) return;
 
-        weekDates = ScheduleSupport.getDateStringFromWeek(curWeek, targetWeek);
-        int month = Integer.parseInt(weekDates.get(0));
-        textViews[0].setText(month + "\n月");
+        weekDates = ScheduleSupport.getDateStringFromWeek(1609837268000L,curWeek, targetWeek);
+//        int month = Integer.parseInt(weekDates.get(0));
+        String month = weekDates.get(0);
+        textViews[0].setText(month + "月");
         for (int i = 1; i < 8; i++) {
             if (textViews[i] != null) {
                 textViews[i].setText(weekDates.get(i));
             }
         }
+    }
+
+    @Override
+    public void onUpdateDate(Long date) {
+
+    }
+
+    public void setWeekDates(Long selectTime){
+        weekDates = ScheduleSupport.getWeekDate(selectTime);
     }
 
     /**
@@ -111,9 +122,10 @@ public class OnDateBuildAapter implements ISchedule.OnDateBuildListener {
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width, height);
 
-        int month = Integer.parseInt(weekDates.get(0));
+//        int month = Integer.parseInt(weekDates.get(0));
+        String month = weekDates.get(0);
         first.setLayoutParams(lp);
-        textViews[0].setText(month + "\n月");
+        textViews[0].setText(month + "月");
         return first;
     }
 
@@ -143,12 +155,12 @@ public class OnDateBuildAapter implements ISchedule.OnDateBuildListener {
 
     protected void initDateBackground() {
         for (int i = 1; i < 8; i++) {
-            if (layouts[i] != null) layouts[i].setBackgroundColor(Color.TRANSPARENT);
+            if (textViews[i] != null) textViews[i].setBackgroundColor(Color.TRANSPARENT);
         }
     }
 
     protected void activeDateBackground(int weekDay) {
-        if (layouts.length > weekDay && layouts[weekDay] != null) {
+        if (textViews.length > weekDay && textViews[weekDay] != null) {
             textViews[weekDay].setBackgroundResource(R.drawable.shape_today_src);
             textViews[weekDay].setTextColor(0xFFFFFFFF);
             textViews[weekDay].setText("今");
