@@ -92,7 +92,7 @@ class MainActivity : Activity() {
                 })
             .callback(object : OnItemBuildAdapter() {
                 override fun onItemUpdate(
-                    layout: FrameLayout,
+                    layout: LinearLayout,
                     textView: TextView,
                     tagView: ImageView,
                     remarkView: ImageView,

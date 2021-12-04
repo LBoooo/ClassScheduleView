@@ -126,7 +126,7 @@ public interface ISchedule {
         void onItemUpdate(FrameLayout layout, TextView textView, TextView countTextView,
                           Schedule schedule, GradientDrawable gd);
 
-        void onItemUpdate(FrameLayout layout, TextView textView, ImageView tagView,ImageView remarkView,
+        void onItemUpdate(LinearLayout layout, TextView textView, ImageView tagView,ImageView remarkView,
                           Schedule schedule, GradientDrawable gd);
 
     }

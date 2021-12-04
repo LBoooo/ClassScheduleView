@@ -326,7 +326,7 @@ class SimpleOperater : AbsOperater() {
         ll.setPadding(padding, lastHeight + padding, padding, padding)
 
         mView!!.onItemBuildListener()
-            .onItemUpdate(layout, tv, overlappingTagView, remarkView, subject, gd)
+            .onItemUpdate(ll, tv, overlappingTagView, remarkView, subject, gd)
         ll.setOnClickListener {
             mView!!.onItemClickListener().onItemClick(
                 it, getAssociateData(
