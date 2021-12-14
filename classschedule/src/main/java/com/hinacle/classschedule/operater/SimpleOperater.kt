@@ -14,7 +14,6 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
-import androidx.core.view.marginTop
 import com.hinacle.classschedule.model.*
 import com.hinacle.classschedule.utils.ScreenUtils
 import com.hinacle.classschedule.utils.ColorUtils

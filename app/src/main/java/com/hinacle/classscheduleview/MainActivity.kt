@@ -240,6 +240,9 @@ class MainActivity : Activity() {
                 start = 1
                 step = 1
                 day = 2
+                extras = mapOf("isRemark" to true)
+
+
             }
         )
         list.add(
@@ -296,6 +299,20 @@ class MainActivity : Activity() {
                 day = 2
             }
         )
+//        list.add(
+//            MySubject().apply {
+//                term = "2000-2000学年秋"
+//                name = "计算机组成原理213"
+//                room = "20322"
+//                teacher = "jiaoshi9999"
+//                weekList = listOf(1, 2)
+//                colorRandom = Color.parseColor("#ffffff")
+//                start = 1
+//                step = 1
+//                day = 2
+//                extras = mapOf("isRemark" to true)
+//            }
+//        )
         return list
     }
 

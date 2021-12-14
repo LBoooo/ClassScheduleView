@@ -56,6 +56,7 @@ open class MySubject : ScheduleEnable {
      */
     var colorRandom = 0
     var url: String? = null
+    var extras :Map<String,Any>? = null
 
     constructor() {
         // TODO Auto-generated constructor stub
@@ -95,13 +96,14 @@ open class MySubject : ScheduleEnable {
         schedule.teacher = teacher
         schedule.weekList = weekList
         schedule.colorRandom = colorRandom
-        schedule.putExtras(EXTRAS_ID, id)
-        schedule.putExtras(EXTRAS_AD_URL, url)
+        schedule.extras = extras
+//        schedule.putExtras(EXTRAS_ID, id)
+//        schedule.putExtras(EXTRAS_AD_URL, url)
         return schedule
     }
 
-    companion object {
-        const val EXTRAS_ID = "extras_id"
-        const val EXTRAS_AD_URL = "extras_ad_url"
-    }
+//    companion object {
+//        const val EXTRAS_ID = "extras_id"
+//        const val EXTRAS_AD_URL = "extras_ad_url"
+//    }
 }
