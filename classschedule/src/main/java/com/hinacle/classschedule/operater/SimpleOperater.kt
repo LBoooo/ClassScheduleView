@@ -309,7 +309,7 @@ class SimpleOperater : AbsOperater() {
         ) {
             lastHeight = mView!!.itemHeight() * pre.step + mView!!.marTop() * (pre.step - 1)
         } else if (subject.start < pre.start && (subject.start + subject.step) > lastPosition) {
-            if (index > 1) {
+            if (index > 1 && index <= size - 2) {
                 val lastLast: Schedule = layout.getChildAt(size - index - 2).tag as Schedule
                 if (lastLast.start <= subject.start && (lastLast.start + lastLast.step) >= (pre.start)) {
                     lastHeight =
