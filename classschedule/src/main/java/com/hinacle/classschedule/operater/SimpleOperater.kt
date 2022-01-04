@@ -83,7 +83,7 @@ open class SimpleOperater : AbsOperater() {
         ta.recycle()
         mView!!.curWeek(curWeek)
             .curTerm(curTerm)
-            .marTop(marTop)
+            .marTop(0)
             .marLeft(marLeft)
             .itemHeight(itemHeight)
             .corner(thisWeekCorner, true)

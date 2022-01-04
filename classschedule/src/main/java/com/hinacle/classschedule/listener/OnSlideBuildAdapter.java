@@ -29,7 +29,7 @@ public class OnSlideBuildAdapter implements ISchedule.OnSlideBuildListener {
     protected int timeTextColor=Color.GRAY;
 
     //侧边栏背景色
-    protected int background=Color.WHITE;
+    protected int background=0xF2F2F5;
     protected float alpha=1;
 
     protected boolean showNumberTextView = true;
@@ -114,7 +114,8 @@ public class OnSlideBuildAdapter implements ISchedule.OnSlideBuildListener {
         TextView timeTextView=view.findViewById(R.id.item_slide_time);
         LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 itemHeight);
-        lp.setMargins(0,marTop,0,0);
+        lp.setMargins(0,0,0,0);
+
         view.setLayoutParams(lp);
 
         numberTextView.setText((pos+1)+"");
