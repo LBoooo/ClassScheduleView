@@ -1,19 +1,16 @@
 package com.hinacle.classschedule.operater
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.hinacle.classschedule.TimetableView
 import android.view.LayoutInflater
-import android.widget.LinearLayout
-import android.widget.FrameLayout
 import com.hinacle.classschedule.R
-import android.graphics.Color
-import android.widget.TextView
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.ImageView
+import android.widget.*
 import com.hinacle.classschedule.model.*
 import com.hinacle.classschedule.utils.ScreenUtils
 import com.hinacle.classschedule.utils.ColorUtils
@@ -28,7 +25,7 @@ import java.util.ArrayList
  * @see SimpleOperater.updateDateView
  * @see SimpleOperater.updateSlideView
  */
-class SimpleOperater : AbsOperater() {
+open class SimpleOperater : AbsOperater() {
     protected var mView: TimetableView? = null
     protected var context: Context? = null
 
@@ -111,115 +108,17 @@ class SimpleOperater : AbsOperater() {
     /**
      * 构建侧边栏
      *
-     * @param slidelayout 侧边栏的容器
+     * @param slideLayout 侧边栏的容器
      */
-    fun newSlideView(slidelayout: LinearLayout?) {
-        if (slidelayout == null) return
-        slidelayout.removeAllViews()
+    private fun newSlideView(slideLayout: LinearLayout?) {
+        if (slideLayout == null) return
+        slideLayout.removeAllViews()
         val listener = mView!!.onSlideBuildListener()
-        listener.onInit(slidelayout, mView!!.slideAlpha())
+        listener.onInit(slideLayout, mView!!.slideAlpha())
         for (i in 0 until mView!!.maxSlideItem()) {
             val view = listener.getView(i, inflater, mView!!.itemHeight(), mView!!.marTop())
-            slidelayout.addView(view)
+            slideLayout.addView(view)
         }
-    }
-
-    /**
-     * 构建课程项
-     *
-     * @param data    某一天的数据集合
-     * @param subject 当前的课程数据
-     * @param pre     上一个课程数据
-     * @param i       构建的索引
-     * @param curWeek 当前周
-     * @return View
-     */
-    private fun newItemView(
-        originData: List<Schedule>,
-        data: List<Schedule>,
-        subject: Schedule,
-        pre: Schedule,
-        i: Int,
-        curWeek: Int
-    ): View {
-        //宽高
-        val width = LinearLayout.LayoutParams.MATCH_PARENT
-        val height = mView!!.itemHeight() * subject.step + mView!!.marTop() * (subject.step - 1)
-
-        //边距
-        val left = mView!!.marLeft() / 2
-        val right = mView!!.marLeft() / 2
-        var top =
-            subject.start - (pre.start + pre.step) * mView!!.itemHeight() + mView!!.marTop() + mView!!.marTop()
-
-//        if ( top < 0) return null;
-
-        // 设置Params
-        val view = inflater?.inflate(R.layout.item_timetable, null, false)
-        val lp = LinearLayout.LayoutParams(width, height)
-        if (i == 0) {
-            top = (subject.start - 1) * (mView!!.itemHeight() + mView!!.marTop()) + mView!!.marTop()
-        }
-        lp.setMargins(left, top, right, 0)
-        view?.setBackgroundColor(Color.TRANSPARENT)
-        view?.tag = subject
-        val layout = view?.findViewById<FrameLayout>(R.id.id_course_item_framelayout)
-        layout?.layoutParams = lp
-        val isThisWeek = ScheduleSupport.isThisWeek(subject, curWeek)
-        val textView = view?.findViewById<View>(R.id.id_course_item_course) as TextView
-        val countTextView = view.findViewById<View>(R.id.id_course_item_count) as TextView
-        textView.text = mView!!.onItemBuildListener().getItemText(subject, isThisWeek)
-        countTextView.text = ""
-        countTextView.visibility = View.GONE
-        val gd = GradientDrawable()
-        if (isThisWeek) {
-            textView.setTextColor(mView!!.itemTextColorWithThisWeek())
-            val colorMap = mView!!.colorPool().colorMap
-            if (!colorMap.isEmpty() && colorMap.containsKey(subject.name)) {
-                gd.setColor(ColorUtils.alphaColor(colorMap[subject.name]!!, mView!!.itemAlpha()))
-            } else {
-                gd.setColor(
-                    mView!!.colorPool()
-                        .getColorAutoWithAlpha(subject.colorRandom, mView!!.itemAlpha())
-                )
-            }
-            gd.cornerRadius = mView!!.corner(true).toFloat()
-            val clist = ScheduleSupport.findSubjects(subject, originData)
-            var count = 0
-            if (clist != null) {
-                for (k in clist.indices) {
-                    val p = clist[k]
-                    if (p != null && ScheduleSupport.isThisWeek(p, curWeek)) count++
-                }
-            }
-            if (count > 1) {
-                countTextView.visibility = View.VISIBLE
-                countTextView.text = count.toString() + ""
-            }
-        } else {
-            textView.setTextColor(mView!!.itemTextColorWithNotThis())
-            val colorMap = mView!!.colorPool().colorMap
-            if (!colorMap.isEmpty() && mView!!.colorPool().isIgnoreUserlessColor && colorMap.containsKey(
-                    subject.name
-                )
-            ) {
-                gd.setColor(ColorUtils.alphaColor(colorMap[subject.name]!!, mView!!.itemAlpha()))
-            } else {
-                gd.setColor(mView!!.colorPool().getUselessColorWithAlpha(mView!!.itemAlpha()))
-            }
-            gd.cornerRadius = mView!!.corner(false).toFloat()
-        }
-        textView.setBackgroundDrawable(gd)
-        mView!!.onItemBuildListener().onItemUpdate(layout, textView, countTextView, subject, gd)
-        textView.setOnClickListener { v ->
-            val result = ScheduleSupport.findSubjects(subject, originData)
-            mView!!.onItemClickListener().onItemClick(v, result)
-        }
-        textView.setOnLongClickListener { view ->
-            mView!!.onItemLongClickListener().onLongClick(view, subject.day, subject.start)
-            true
-        }
-        return view
     }
 
     /**
@@ -230,47 +129,28 @@ class SimpleOperater : AbsOperater() {
      * @param curWeek 当前周
      */
     private fun addToLayout(layout: FrameLayout?, data: List<Schedule>?, curWeek: Int) {
-        if (layout == null || data == null || data.size < 1) return
+        if (layout == null || data == null || data.isEmpty()) return
         layout.removeAllViews()
 
         //遍历
-//        List<Schedule> filter = ScheduleSupport.fliterSchedule(data, curWeek, mView.isShowNotCurWeek());
         val filter = flitSchedule(data, curWeek, mView!!.isShowNotCurWeek)
-        var pre: Schedule? = null
-        if (filter.size > 0) {
-            pre = filter[0]
-        }
-        //        for (int i = 0; i < filter.size(); i++) {
-//            final Schedule subject = filter.get(i);
-//            View view = newItemView1(data, filter, subject, pre, i, curWeek);
-//            if (view != null) {
-//                layout.addView(view);
-//                pre = subject;
-//            }
-//        }
+
         for (i in filter.indices) {
-            val subject = filter[i]
             val view = inflater!!.inflate(R.layout.layout_test, null, false)
-            view.tag = subject
             layout.addView(view)
         }
-        for (i in filter.indices) {
-            val subject = filter[i]
-            newItem(layout, subject, pre, i, filter.size, filter)
-            pre = subject
-        }
 
+        for (i in filter.indices) {
+            newItem(layout, filter[i], i, filter)
+        }
     }
 
     private fun newItem(
         layout: FrameLayout,
         subject: Schedule,
-        pre: Schedule?,
         index: Int,
-        size: Int,
         data: List<Schedule>
     ) {
-        val lastPosition = pre!!.start + pre.step
         var lastHeight = 0
         val padding = ScreenUtils.dip2px(context, 5f)
         //宽高
@@ -281,7 +161,7 @@ class SimpleOperater : AbsOperater() {
         val right = mView!!.marLeft() / 2
         val top = (subject.start - 1) * mView!!.itemHeight() + mView!!.marTop() * subject.start
 
-        val view = layout.getChildAt(size - index - 1)
+        val view = layout.getChildAt(index)
         val ll = view.findViewById<LinearLayout>(R.id.itemLayout)
         val lp = FrameLayout.LayoutParams(width, height)
         val tv = view.findViewById<TextView>(R.id.textView)
@@ -302,28 +182,26 @@ class SimpleOperater : AbsOperater() {
         lp.setMargins(left, top, right, 0)
         ll.layoutParams = lp
         ll.background = gd
-        if (index == 0) {
-            lastHeight = 0
-        } else if (pre.start == subject.start &&
-            lastPosition <= subject.start + subject.step
-        ) {
-            lastHeight = mView!!.itemHeight() * pre.step + mView!!.marTop() * (pre.step - 1)
-        } else if (subject.start < pre.start && (subject.start + subject.step) > lastPosition) {
-            if (index > 1 && index <= size - 2) {
-                val lastLast: Schedule = layout.getChildAt(size - index - 2).tag as Schedule
-                if (lastLast.start <= subject.start && (lastLast.start + lastLast.step) >= (pre.start)) {
-                    lastHeight =
-                        mView!!.itemHeight() * (pre.step + pre.start - 1) + mView!!.marTop() * (pre.step + pre.start - 1)
-                } else {
-                    lastHeight = 0
+
+        var space = 0
+        for (si in 0 until subject.step){
+            val tempData = data.mapIndexed { i, t ->
+                if (i > index) {
+                    si + subject.start in t.start until t.start + t.step
+                }else{
+                    false
                 }
-            } else {
-                lastHeight = 0
+            }.contains(true)
+            if (!tempData){
+                space = si
+                break
             }
         }
 
+        if (space != 0) {
+            lastHeight = (space * mView!!.itemHeight()) + (mView!!.marTop() * (space))
+        }
         ll.setPadding(padding, lastHeight + padding, padding, padding)
-
         mView!!.onItemBuildListener()
             .onItemUpdate(ll, tv, overlappingTagView, remarkView, subject, gd)
         ll.setOnClickListener {
@@ -334,156 +212,6 @@ class SimpleOperater : AbsOperater() {
                 )
             )
         }
-    }
-
-
-    /**
-     * 构建课程项
-     *
-     * @param data    某一天的数据集合
-     * @param subject 当前的课程数据
-     * @param pre     上一个课程数据
-     * @param i       构建的索引
-     * @param curWeek 当前周
-     * @return View
-     */
-    private fun newItemView1(
-        originData: List<Schedule>,
-        data: List<Schedule>,
-        subject: Schedule,
-        pre: Schedule,
-        i: Int,
-        curWeek: Int
-    ): View {
-
-
-        //宽高
-        val width = LinearLayout.LayoutParams.MATCH_PARENT
-        val height = mView!!.itemHeight() * subject.step + mView!!.marTop() * (subject.step - 1)
-        //边距
-        val left = mView!!.marLeft() / 2
-        val right = mView!!.marLeft() / 2
-        val top = subject.start * subject.step + mView!!.marTop()
-        //        if (i < 0 && top < 0) return null;
-//        int top = (subject.getStart() - (pre.getStart() + pre.getStep()))
-//                * (mView.itemHeight() + mView.marTop()) + mView.marTop();
-        val view = inflater!!.inflate(R.layout.layout_test, null, false)
-        val ll = view.findViewById<LinearLayout>(R.id.itemLayout)
-        val lp = LinearLayout.LayoutParams(width, height)
-        view.tag = subject
-        val tv = view.findViewById<TextView>(R.id.textView)
-        val gd = GradientDrawable()
-        val colorMap = mView!!.colorPool().colorMap
-        if (!colorMap.isEmpty() && colorMap.containsKey(subject.name)) {
-            gd.setColor(ColorUtils.alphaColor(colorMap[subject.name]!!, mView!!.itemAlpha()))
-        } else {
-            gd.setColor(
-                mView!!.colorPool().getColorAutoWithAlpha(subject.colorRandom, mView!!.itemAlpha())
-            )
-        }
-        gd.cornerRadius = mView!!.corner(true).toFloat()
-        //        tv.setBackground(gd);
-        tv.text = subject.name
-        Log.v("11111111111", "name:" + subject.name)
-        //        ll.setBackgroundColor(subject.getColorRandom());
-        view.layoutParams = lp
-        //        top = (subject.getStart() - 1) * (mView.itemHeight() + mView.marTop()) + mView.marTop();
-        lp.setMargins(left, top, right, 0)
-        ll.layoutParams = lp
-        ll.background = gd
-        //        mView.onItemBuildListener().onItemUpdate(layout, textView, countTextView, subject, gd);
-//        if (pre.getStart() <= subject.getStart()){
-//
-//        }
-
-
-//        int top = (subject.getStart() - (pre.getStart() + pre.getStep()))
-//                * (mView.itemHeight() + mView.marTop()) + mView.marTop();
-
-        /*       if (i != 0 && top < 0) return null;
-
-        // 设置Params
-        View view = inflater.inflate(R.layout.item_timetable, null, false);
-
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width, height);
-//        if (i == 0) {
-//            top = (subject.getStart() - 1) * (mView.itemHeight() + mView.marTop()) + mView.marTop();
-//        }
-        lp.setMargins(left, top, right, 0);
-
-        view.setBackgroundColor(Color.TRANSPARENT);
-        view.setTag(subject);
-        FrameLayout layout = view.findViewById(R.id.id_course_item_framelayout);
-        layout.setLayoutParams(lp);
-
-        boolean isThisWeek = ScheduleSupport.isThisWeek(subject, curWeek);
-        TextView textView = (TextView) view.findViewById(R.id.id_course_item_course);
-        TextView countTextView = (TextView) view.findViewById(R.id.id_course_item_count);
-        textView.setText(mView.onItemBuildListener().getItemText(subject, isThisWeek));
-
-        countTextView.setText("");
-        countTextView.setVisibility(View.GONE);
-
-        GradientDrawable gd = new GradientDrawable();
-        if (isThisWeek) {
-            textView.setTextColor(mView.itemTextColorWithThisWeek());
-            Map<String,Integer> colorMap=mView.colorPool().getColorMap();
-            if(!colorMap.isEmpty()&&colorMap.containsKey(subject.getName())){
-                gd.setColor(ColorUtils.alphaColor(colorMap.get(subject.getName()),mView.itemAlpha()));
-            }else{
-                gd.setColor(mView.colorPool().getColorAutoWithAlpha(subject.getColorRandom(), mView.itemAlpha()));
-            }
-            gd.setCornerRadius(mView.corner(true));
-
-//            List<Schedule> clist = ScheduleSupport.findSubjects(subject, originData);
-//
-//            for (Schedule schedule : clist) {
-//
-//
-//            }
-
-//            int count =0;
-//            if(clist!=null){
-//                for(int k=0;k<clist.size();k++){
-//                    Schedule p=clist.get(k);
-//                    if(p!=null&&ScheduleSupport.isThisWeek(p,curWeek)) count++;
-//                }
-
-
-//            }
-//            if (count > 1) {
-//                countTextView.setVisibility(View.VISIBLE);
-//                countTextView.setText(count + "");
-//            }
-        } else {
-            textView.setTextColor(mView.itemTextColorWithNotThis());
-            Map<String,Integer> colorMap=mView.colorPool().getColorMap();
-            if(!colorMap.isEmpty()&&mView.colorPool().isIgnoreUserlessColor()&&colorMap.containsKey(subject.getName())){
-                gd.setColor(ColorUtils.alphaColor(colorMap.get(subject.getName()),mView.itemAlpha()));
-            }else{
-                gd.setColor(mView.colorPool().getUselessColorWithAlpha(mView.itemAlpha()));
-            }
-            gd.setCornerRadius(mView.corner(false));
-        }
-
-        textView.setBackgroundDrawable(gd);
-        mView.onItemBuildListener().onItemUpdate(layout, textView, countTextView, subject, gd);
-
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<Schedule> result = ScheduleSupport.findSubjects(subject, originData);
-                mView.onItemClickListener().onItemClick(v, result);
-            }
-        });
-
-        textView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                mView.onItemLongClickListener().onLongClick(view, subject.getDay(), subject.getStart());
-                return true;
-            }
-        }); */return view
     }
 
     /**
@@ -546,6 +274,7 @@ class SimpleOperater : AbsOperater() {
     /**
      * 初始化panel并为panel设置事件监听
      */
+    @SuppressLint("ClickableViewAccessibility")
     protected fun initPanel() {
         for (i in panels!!.indices) {
             panels!![i] = mView!!.findViewById(R.id.weekPanel_1 + i)
@@ -587,11 +316,15 @@ class SimpleOperater : AbsOperater() {
 
     /**
      * 设置旗标布局的配置
+     * mView!!.monthWidth()
      */
     fun applyFlagLayoutConf() {
         mView!!.hideFlaglayout()
         val lp =
-            LinearLayout.LayoutParams(mView!!.monthWidth(), LinearLayout.LayoutParams.MATCH_PARENT)
+            RelativeLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
         weekPanel!!.layoutParams = lp
         flagLinearLayout!!.setBackgroundColor(mView!!.flagBgcolor())
         val perWidth = perWidth
@@ -678,9 +411,8 @@ class SimpleOperater : AbsOperater() {
     }
 
     protected val perWidth: Float
-        protected get() {
-            var perWidth = 0f
-            perWidth = if (mView!!.isShowWeekends) {
+        get() {
+            val perWidth = if (mView!!.isShowWeekends) {
                 ((ScreenUtils.getWidthInPx(context) - mView!!.monthWidth()) / 7).toFloat()
             } else {
                 ((ScreenUtils.getWidthInPx(context) - mView!!.monthWidth()) / 5).toFloat()

@@ -219,6 +219,19 @@ class MainActivity : Activity() {
         list.add(
             MySubject().apply {
                 term = "2017-2018学年秋"
+                name = "计算机组成原理QQQWWW"
+                room = "203"
+                teacher = "jiaoshi0123"
+                weekList = listOf(1, 2)
+                colorRandom = Color.parseColor("#ff0000")
+                start = 14
+                step = 4
+                day = 2
+            }
+        )
+        list.add(
+            MySubject().apply {
+                term = "2017-2018学年秋"
                 name = "计算机组成原理"
                 room = "203"
                 teacher = "jiaoshi0123"
@@ -271,21 +284,58 @@ class MainActivity : Activity() {
                 day = 2
             }
         )
-
         list.add(
             MySubject().apply {
                 term = "2000-2000学年秋"
-                name = "start6 - 2"
+                name = "start5 - 2"
+                room = "20322"
+                teacher = "jiaoshi9999"
+                weekList = listOf(1, 2)
+                colorRandom = Color.parseColor("#ee22ee")
+                start = 5
+                step = 2
+                day = 2
+            }
+        )
+        list.add(
+            MySubject().apply {
+                term = "2000-2000学年秋"
+                name = "start6 - 3"
                 room = "20322"
                 teacher = "jiaoshi9999"
                 weekList = listOf(1, 2)
                 colorRandom = Color.parseColor("#ff00ff")
                 start = 6
-                step = 2
+                step = 3
                 day = 2
             }
         )
-
+        list.add(
+            MySubject().apply {
+                term = "2000-2000学年秋"
+                name = "start6 - 1"
+                room = "20322"
+                teacher = "jiaoshi9999"
+                weekList = listOf(1, 2)
+                colorRandom = Color.parseColor("#ff00ff")
+                start = 6
+                step = 1
+                day = 2
+            }
+        )
+        list.add(
+            MySubject().apply {
+                term = "2000-2000学年秋"
+                name = "start8 - 1"
+                room = "20322"
+                teacher = "jiaoshi9999"
+                weekList = listOf(1, 2)
+                colorRandom = Color.parseColor("#ff00ff")
+                start = 8
+                step = 1
+                day = 2
+            }
+        )
         list.add(
             MySubject().apply {
                 term = "2000-2000学年秋"

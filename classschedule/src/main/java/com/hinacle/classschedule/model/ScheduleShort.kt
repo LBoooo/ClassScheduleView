@@ -12,9 +12,18 @@ fun flitSchedule(data: List<Schedule>?, curWeek: Int, isShowNotCurWeek: Boolean)
         }
     }
 
-    filter.sortWith(compareBy({ it.start + it.step }, { it.step }))
-//        filter .reverse()
+//    filter.sortWith(compareBy({it.start},{it.step}))
+
+    filter.sortWith { o1, o2 ->
+        if (o1.start == o2.start) {
+            o2.step.compareTo(o1.step)
+        } else {
+            o1.start.compareTo(o2.start)
+        }
+    }
     return filter
+//    filter.sortWith(compareBy({ it.start + it.step }, { it.step }))
+//    return filter.asReversed()
 }
 
 /**

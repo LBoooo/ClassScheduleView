@@ -12,6 +12,7 @@
         <entry key="classschedule/src/main/res/drawable/shape_today_src.xml" value="0.19814814814814816" />
         <entry key="classschedule/src/main/res/layout/item_custom_dateview.xml" value="0.2125" />
         <entry key="classschedule/src/main/res/layout/item_dateview.xml" value="0.2125" />
+        <entry key="classschedule/src/main/res/layout/item_slide_time.xml" value="0.2125" />
         <entry key="classschedule/src/main/res/layout/item_timetable.xml" value="0.2125" />
         <entry key="classschedule/src/main/res/layout/layout_test.xml" value="0.2125" />
         <entry key="classschedule/src/main/res/layout/timetable_layout.xml" value="0.2125" />

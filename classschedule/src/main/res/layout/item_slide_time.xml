@@ -6,11 +6,12 @@
     android:layout_height="@dimen/weekItemHeight"
     android:gravity="center"
     android:orientation="vertical">
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:layout_width="match_parent"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:orientation="vertical"
         android:layout_weight="1"
+        android:paddingStart="15dp"
         android:layout_height="0dp">
         <TextView
             android:layout_width="wrap_content"
@@ -23,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/item_slide_time"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
     <View
         android:background="@color/app_gray_bg"

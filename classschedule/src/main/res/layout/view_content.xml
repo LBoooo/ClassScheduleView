@@ -6,6 +6,104 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/weekPanel_0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="5dp"
+            android:background="@color/app_white"
+            android:orientation="vertical">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginStart="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignBottom="@+id/weekPanel_0"
+            android:layout_alignParentStart="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- 周一到周日的排列 -->
+
+            <FrameLayout
+                android:id="@+id/weekPanel_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/weekPanel_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/weekPanel_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/weekPanel_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/weekPanel_5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/weekPanel_6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/weekPanel_7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+
+            </FrameLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+<!--
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +116,7 @@
             android:background="@color/app_white"
             android:orientation="vertical">
         </LinearLayout>
-        <!-- 周一到周日的排列 -->
+         周一到周日的排列
 
         <FrameLayout
             android:id="@+id/weekPanel_1"
@@ -90,7 +188,7 @@
 
         </FrameLayout>
     </LinearLayout>
-
+    -->
     <LinearLayout
         android:id="@+id/id_flaglayout"
         android:layout_width="0dp"
