@@ -191,7 +191,7 @@ open class SimpleOperater : AbsOperater() {
                 }else{
                     false
                 }
-            }.contains(true)
+            }.any{ it }
             if (!tempData){
                 space = si
                 break
@@ -208,7 +208,7 @@ open class SimpleOperater : AbsOperater() {
             mView!!.onItemClickListener().onItemClick(
                 it, getAssociateData(
                     data, subject,
-                    mutableListOf()
+                    hashSetOf()
                 )
             )
         }

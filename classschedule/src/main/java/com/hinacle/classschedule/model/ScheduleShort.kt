@@ -29,25 +29,25 @@ fun flitSchedule(data: List<Schedule>?, curWeek: Int, isShowNotCurWeek: Boolean)
 /**
  * 递归查找符合条件的数据
  */
-fun getAssociateData(
+tailrec fun getAssociateData(
     data: List<Schedule>,
     currData: Schedule,
-    tempList: MutableList<Schedule>
+    tempList: HashSet<Schedule>
 ): List<Schedule> {
     return if (data.isEmpty()) {
-        tempList
+        tempList.toList()
     } else {
-        val temp = data.find {
+        val temp = data.filter {
             currData.start in it.start until it.start + it.step ||
                     (currData.start + currData.step) in (it.start + it.step) until it.start ||
                     it.start in currData.start until currData.start + currData.step ||
                     (it.start + it.step) in (currData.start + currData.step) until currData.start
         }
-        if (temp == null) {
-            tempList
+        if (temp.isEmpty()) {
+            tempList.toList()
         } else {
-            tempList.add(temp)
-            getAssociateData(data - temp, temp, tempList)
+            tempList.addAll(temp)
+            getAssociateData(data - temp[0], temp[0], tempList)
         }
     }
 }
